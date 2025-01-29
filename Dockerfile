@@ -14,13 +14,13 @@ RUN npm install
 COPY . .
 
 # Build the Vite application
-RUN npm run build
+RUN npm run build && ls -R /app
 
 # Stage 2: Serve the React app using Nginx
 FROM nginx:stable-alpine
 
 # Copy the Vite build from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # Expose port 80 for the application
 EXPOSE 80
